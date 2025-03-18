@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    TwitterX
+{% endblock %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="text-center text-white mt-3">Welcome to our TwitterX</h1>
+
+<a  class="btn btn-primary" href="{% url  'create_tweet' %}"> Create New  Tweet</a>
+
+<div class="container row gap-3 mt-4">
+   {% for i in tweets %}
+   <div class="card" style="width: 18rem;">
+   
+   <img src="{{tweets.photo.url}}" class="card-img-top" alt="...">
+   
+   <img src="{% static '1.jpg'%}" class="card-img-top" alt="...">
+   <div class="card-body">
+      <h5 class="card-title">{{i.user.username}}</h5>
+      <p class="card-text">{{i.text}}</p>
+      {% if i.user == request.user %}
+      <a href="{% url 'edit_tweet' i.id %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'delete_tweet' i.id  %}" class="btn btn-danger">Delete</a>
+      {% endif %}
+    </div>
+  </div>
+   {% endfor %}
+
+
+</div>
+
+{% endblock %}
